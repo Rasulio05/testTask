@@ -127,7 +127,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 
-// Типы данных согласно ТЗ
+
 interface Param {
   id: number;
   name: string;
@@ -153,12 +153,12 @@ interface Props {
   model: Model;
 }
 
-// Реализация ParamEditor
+
 const ParamEditor = forwardRef<{ getModel: () => Model }, Props>(
   ({ params, model }, ref) => {
     const [paramValues, setParamValues] = useState<ParamValue[]>([]);
 
-    // Инициализация значений параметров
+    
     useEffect(() => {
       const initializedValues = params.map((param) => {
         const existingValue = model.paramValues.find(
@@ -172,7 +172,7 @@ const ParamEditor = forwardRef<{ getModel: () => Model }, Props>(
       setParamValues(initializedValues);
     }, [params, model.paramValues]);
 
-    // Обработчик изменения значения
+    
     const handleParamChange = (paramId: number, value: string) => {
       setParamValues((prevValues) =>
         prevValues.map((item) =>
@@ -181,7 +181,7 @@ const ParamEditor = forwardRef<{ getModel: () => Model }, Props>(
       );
     };
 
-    // Метод для получения модели согласно ТЗ
+    
     const getModel = (): Model => {
       return {
         paramValues: paramValues,
@@ -189,7 +189,7 @@ const ParamEditor = forwardRef<{ getModel: () => Model }, Props>(
       };
     };
 
-    // Экспорт метода через ref
+    
     useImperativeHandle(ref, () => ({
       getModel,
     }));
@@ -217,11 +217,10 @@ const ParamEditor = forwardRef<{ getModel: () => Model }, Props>(
   }
 );
 
-// Пример использования компонента
+
 const App = () => {
   const editorRef = React.useRef<{ getModel: () => Model }>(null);
 
-  // Пример данных согласно ТЗ
   const params: Param[] = [
     { id: 1, name: "Назначение", type: "string" },
     { id: 2, name: "Длина", type: "string" },
